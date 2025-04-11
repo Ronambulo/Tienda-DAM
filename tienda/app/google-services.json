@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "190738744590",
+    "project_id": "erdr-utad-inso",
+    "storage_bucket": "erdr-utad-inso.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190738744590:android:66abc6ddd168b052ecc35f",
+        "android_client_info": {
+          "package_name": "com.utad.inso.enriquerodriguez.tienda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjZUaEJM3KZ_Rp4P2Dm1DNZcoyDgKS0Zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
