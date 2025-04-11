@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.utad.inso.enriquerodriguez.tienda.R
 import com.utad.inso.enriquerodriguez.tienda.databinding.FragmentLoginBinding
 import com.utad.inso.enriquerodriguez.tienda.databinding.FragmentMainBinding
@@ -45,13 +48,21 @@ class MainFragment: Fragment() {
         binding.textoMain.text = correo
 
         binding.btnConsulta.setOnClickListener {
-            database.reference.child("aplicacion").child("caracteristicas")
-                .child("nombre").get().addOnSuccessListener {
-                binding.textoMain.text =  it.value.toString()
-            }
-
 //            database.reference.child("aplicacion").child("caracteristicas")
-//                .child("nombre")
+//                .child("nombre").get().addOnSuccessListener {
+//                binding.textoMain.text =  it.value.toString()
+//            }
+
+            database.reference.child("aplicacion").child("caracteristicas")
+                .child("nombre").addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        Log.v("dato",snapshot.value.toString())
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("not yet implemented")
+                    }
+                })
         }
 
         binding.btnVolver.setOnClickListener {
