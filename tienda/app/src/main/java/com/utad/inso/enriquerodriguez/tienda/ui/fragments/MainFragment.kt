@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.utad.inso.enriquerodriguez.tienda.R
 import com.utad.inso.enriquerodriguez.tienda.databinding.FragmentLoginBinding
 import com.utad.inso.enriquerodriguez.tienda.databinding.FragmentMainBinding
+import com.utad.inso.enriquerodriguez.tienda.model.User
 import java.util.zip.Inflater
 
 class MainFragment: Fragment() {
@@ -53,16 +55,35 @@ class MainFragment: Fragment() {
 //                binding.textoMain.text =  it.value.toString()
 //            }
 
-            database.reference.child("aplicacion").child("caracteristicas")
-                .child("nombre").addValueEventListener(object: ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        Log.v("dato",snapshot.value.toString())
-                    }
+//            database.reference.child("aplicacion").addChildEventListener(object: ChildEventListener{})
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("not yet implemented")
-                    }
-                })
+            database.reference.child("users").addChildEventListener(object : ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val usuario = snapshot.getValue(User::class.java)
+                    Log.v("usuarios", usuario?.nombre.toString())
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    val usuario = snapshot.getValue(User::class.java)
+                    Log.v("usuarios", usuario?.nombre.toString())
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    val usuario = snapshot.getValue(User::class.java)
+                    Log.v("usuarios", usuario?.nombre.toString())
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    val usuario = snapshot.getValue(User::class.java)
+                    Log.v("usuarios", usuario?.nombre.toString())
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
         }
 
         binding.btnVolver.setOnClickListener {
